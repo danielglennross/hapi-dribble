@@ -25,7 +25,7 @@ describe('filter responses', () => {
             dribble: {
               all: {
                 rule: () => true,
-                items: options.items
+                filter: options.filter
               }
             }
           },
@@ -41,22 +41,6 @@ describe('filter responses', () => {
     });
   };
 
-  // it('test', (done) => {
-  //   testFilter({
-  //     items: [
-  //       { omit: ['a.b', 'c'] },
-  //       { for: 'e.f', omit: ['g', 'h'] },
-  //       { for: 'j.k.l', omit: ['x', 'v.b'] }
-  //     ],
-  //     fixture: {
-
-  //     },
-  //     expected: {
-
-  //     }
-  //   }, done);
-  // });
-
   // it('should foward on response if no condition is met', (done) => {
   //   done();
   // });
@@ -71,9 +55,7 @@ describe('filter responses', () => {
 
   it('should omit a single property', (done) => {
     testFilter({
-      items: [
-        { omit: ['a'] }
-      ],
+      filter: { omit: ['a'] },
       fixture: {
         a: 'a',
         b: 'b'
@@ -87,9 +69,7 @@ describe('filter responses', () => {
 
   it('should omit multiple properties', (done) => {
     testFilter({
-      items: [
-        { omit: ['a', 'b'] }
-      ],
+      filter: { omit: ['a', 'b'] },
       fixture: {
         a: 'a',
         b: 'b',
@@ -104,9 +84,7 @@ describe('filter responses', () => {
 
   it('should allow a single property', (done) => {
     testFilter({
-      items: [
-        { allow: ['a'] }
-      ],
+      filter: { allow: ['a'] },
       fixture: {
         a: 'a',
         b: 'b'
@@ -120,9 +98,7 @@ describe('filter responses', () => {
 
   it('should allow multiple properties', (done) => {
     testFilter({
-      items: [
-        { allow: ['a', 'b'] }
-      ],
+      filter: { allow: ['a', 'b'] },
       fixture: {
         a: 'a',
         b: 'b',
@@ -138,9 +114,7 @@ describe('filter responses', () => {
 
   it('should not attempt to unset a non-existing parent obj when empty', (done) => {
     testFilter({
-      items: [
-        { omit: ['a', 'b'] }
-      ],
+      filter: { omit: ['a', 'b'] },
       fixture: {
         a: 'a',
         b: 'b'
@@ -152,9 +126,7 @@ describe('filter responses', () => {
 
   it('should omit single nested object property', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b'] }
-      ],
+      filter: { omit: ['a.b'] },
       fixture: {
         a: {
           b: 'b',
@@ -172,9 +144,7 @@ describe('filter responses', () => {
 
   it('should omit multiple nested object properties', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b', 'd.e'] }
-      ],
+      filter: { omit: ['a.b', 'd.e'] },
       fixture: {
         a: {
           b: 'b',
@@ -195,9 +165,7 @@ describe('filter responses', () => {
 
   it('should allow single nested object property', (done) => {
     testFilter({
-      items: [
-        { allow: ['a.b'] }
-      ],
+      filter: { allow: ['a.b'] },
       fixture: {
         a: {
           b: 'b',
@@ -215,9 +183,7 @@ describe('filter responses', () => {
 
   it('should allow multiple nested object properties', (done) => {
     testFilter({
-      items: [
-        { allow: ['a.b', 'd.e'] }
-      ],
+      filter: { allow: ['a.b', 'd.e'] },
       fixture: {
         a: {
           b: 'b',
@@ -241,9 +207,7 @@ describe('filter responses', () => {
 
   it('should remove nested object if no properties left', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b', 'a.c'] }
-      ],
+      filter: { omit: ['a.b', 'a.c'] },
       fixture: {
         a: {
           b: 'b',
@@ -264,9 +228,7 @@ describe('filter responses', () => {
 
   it('should omit twice nested object properties', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b.c'] }
-      ],
+      filter: { omit: ['a.b.c'] },
       fixture: {
         a: {
           b: {
@@ -288,9 +250,7 @@ describe('filter responses', () => {
 
   it('should omit twice nested object properties, first one array', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b'] }
-      ],
+      filter: { omit: ['a.b'] },
       fixture: [{
         a: {
           b: 'b',
@@ -308,9 +268,7 @@ describe('filter responses', () => {
 
   it('should omit nested object properties, second one array', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b'] }
-      ],
+      filter: { omit: ['a.b'] },
       fixture: {
         a: [{
           b: 'b',
@@ -328,9 +286,7 @@ describe('filter responses', () => {
 
   it('should omit nested object properties, first & second one arrays', (done) => {
     testFilter({
-      items: [
-        { omit: ['a.b'] }
-      ],
+      filter: { omit: ['a.b'] },
       fixture: [{
         a: [{
           b: [{
@@ -348,13 +304,9 @@ describe('filter responses', () => {
     done);
   });
 
-
-
   it('should allow twice nested object properties', (done) => {
     testFilter({
-      items: [
-        { allow: ['a.b.c'] }
-      ],
+      filter: { allow: ['a.b.c'] },
       fixture: {
         a: {
           b: {
@@ -375,24 +327,113 @@ describe('filter responses', () => {
   });
 
   it('should allow twice nested object properties, first one array', (done) => {
-    done();
+    testFilter({
+      filter: { allow: ['a.b'] },
+      fixture: [{
+        a: {
+          b: 'b',
+          c: 'c'
+        }
+      }],
+      expected: [{
+        a: {
+          b: 'b'
+        }
+      }]
+    },
+    done);
   });
 
   it('should allow twice nested object properties, second one array', (done) => {
-    done();
+    testFilter({
+      filter: { allow: ['a.b'] },
+      fixture: {
+        a: [{
+          b: 'b',
+          c: 'c'
+        }]
+      },
+      expected: {
+        a: [{
+          b: 'b'
+        }]
+      }
+    },
+    done);
   });
 
   it('should allow twice nested object properties, first & second one arrays', (done) => {
-    done();
+    testFilter({
+      filter: { allow: ['a.b'] },
+      fixture: [{
+        a: [{
+          b: [{
+            c: 'c'
+          }],
+          d: 'd'
+        }]
+      }],
+      expected: [{
+        a: [{
+          b: [{
+            c: 'c'
+          }]
+        }]
+      }]
+    },
+    done);
   });
 
-  it('should remove nested object if no nested properties left', (done) => {
-    done();
+  it('should omit an array of nested and non nested properties', (done) => {
+    testFilter({
+      filter: { omit: ['a.b', 'd'] },
+      fixture: {
+        a: {
+          b: 'b',
+          c: 'c'
+        },
+        d: 'd'
+      },
+      expected: {
+        a: {
+          c: 'c'
+        }
+      }
+    }, done);
   });
 
+  it('should allow an array of nested and non nested properties', (done) => {
+    testFilter({
+      filter: { allow: ['a.b', 'd'] },
+      fixture: {
+        a: {
+          b: 'b',
+          c: 'c'
+        },
+        d: 'd'
+      },
+      expected: {
+        a: {
+          b: 'b'
+        },
+        d: 'd'
+      }
+    }, done);
+  });
 
-  it('should allow multiple filter items', (done) => {
-    done();
+  it('should remove nested object/ array if no nested properties left', (done) => {
+    testFilter({
+      filter: { omit: ['a.b.c'] },
+      fixture: {
+        a: {
+          b: [{
+            c: 'c'
+          }]
+        }
+      },
+      expected: {}
+    },
+    done);
   });
 
 });
