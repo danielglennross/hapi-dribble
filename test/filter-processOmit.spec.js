@@ -191,6 +191,23 @@ describe('proceesKeep', () => {
   });
 
   it('should', (done) => {
+    const res = filter.processOmit(['a.[].[].b'], {
+      a: [
+        [
+          [
+            {
+              b: 'b'
+            }
+          ]
+        ]
+      ]
+    });
+
+    expect(res).to.equal({});
+    done();
+  });
+
+  it('should', (done) => {
     const res = filter.processOmit(['a.[].[]'], {
       a: [
         [
@@ -204,12 +221,7 @@ describe('proceesKeep', () => {
       ]
     });
 
-    expect(res).to.equal({
-      a: [
-        [
-        ]
-      ]
-    });
+    expect(res).to.equal({});
     done();
   });
 

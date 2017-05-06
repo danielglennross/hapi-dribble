@@ -58,22 +58,6 @@ describe('proceesKeep', () => {
     done();
   });
 
-  // it('should', (done) => {
-  //   const res = filter.processKeep(['a.b.c'], {
-  //     a: [[{ b: 'b' }]]
-  //   });
-
-  //   expect(res).to.equal({
-  //     a: [{
-  //       b: {
-  //         c: 'c'
-  //       }
-  //     }],
-  //     g: 'g'
-  //   });
-  //   done();
-  // });
-
   it('should', (done) => {
     const res = filter.processKeep(['a.b'], {
       a: [{
@@ -142,6 +126,85 @@ describe('proceesKeep', () => {
         }]
       }]
     }]);
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['a.[].b'], {
+      a: [
+        [
+          {
+            b: 'b',
+            c: 'c'
+          }
+        ]
+      ]
+    });
+
+    expect(res).to.equal({
+      a: [
+        [
+          {
+            b: 'b'
+          }
+        ]
+      ]
+    });
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['a.[]'], {
+      a: [
+        [
+          {
+            b: 'b',
+            c: 'c'
+          }
+        ],
+        [
+          {
+            d: 'd'
+          }
+        ]
+      ]
+    });
+
+    expect(res).to.equal({
+      a: [
+        [
+          {
+            b: 'b',
+            c: 'c'
+          }
+        ],
+        [
+          {
+            d: 'd'
+          }
+        ]
+      ]
+    });
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['[].a'], [
+      [
+        {
+          a: 'a',
+          b: 'b'
+        }
+      ]
+    ]);
+
+    expect(res).to.equal([
+      [
+        {
+          a: 'a'
+        }
+      ]
+    ]);
     done();
   });
 
