@@ -52,6 +52,37 @@ describe('proceesKeep', () => {
   });
 
   it('should', (done) => {
+    const res = filter.processOmit(['a.b.c'], {
+      a: [{
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      }, {
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      }],
+      g: 'g'
+    });
+
+    expect(res).to.equal({
+      a: [{
+        b: {
+          d: 'd'
+        }
+      }, {
+        b: {
+          d: 'd'
+        }
+      }],
+      g: 'g'
+    });
+    done();
+  });
+
+  it('should', (done) => {
     const res = filter.processOmit(['a.b.c', 'g'], {
       a: [{
         b: {

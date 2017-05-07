@@ -36,6 +36,29 @@ describe('proceesKeep', () => {
   });
 
   it('should', (done) => {
+    const res = filter.processKeep(['a.b.c', 'a.b.d'], {
+      a: {
+        b: {
+          c: 'c',
+          d: 'd'
+        },
+        e: 'e'
+      },
+      g: 'g'
+    });
+
+    expect(res).to.equal({
+      a: {
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      }
+    });
+    done();
+  });
+
+  it('should', (done) => {
     const res = filter.processKeep(['a.b.c', 'g'], {
       a: [{
         b: {
@@ -54,6 +77,29 @@ describe('proceesKeep', () => {
         }
       }],
       g: 'g'
+    });
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['a.b.c', 'a.b.d'], {
+      a: {
+        b: [{
+          c: 'c',
+          d: 'd'
+        }],
+        e: 'e'
+      },
+      g: 'g'
+    });
+
+    expect(res).to.equal({
+      a: {
+        b: [{
+          c: 'c',
+          d: 'd'
+        }]
+      }
     });
     done();
   });
@@ -95,6 +141,74 @@ describe('proceesKeep', () => {
 
     expect(res).to.equal({
       a: [{
+        b: [{
+          c: 'c',
+          d: 'd'
+        }]
+      }]
+    });
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['a.b.c', 'a.b.d'], {
+      a: [{
+        b: {
+          c: 'c',
+          d: 'd'
+        },
+        e: 'e'
+      }, {
+        b: {
+          c: 'c',
+          d: 'd'
+        },
+        e: 'e'
+      }],
+      g: 'g'
+    });
+
+    expect(res).to.equal({
+      a: [{
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      }, {
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      }]
+    });
+    done();
+  });
+
+  it('should', (done) => {
+    const res = filter.processKeep(['a.b.c', 'a.b.d'], {
+      a: [{
+        b: [{
+          c: 'c',
+          d: 'd'
+        }],
+        e: 'e'
+      }, {
+        b: [{
+          c: 'c',
+          d: 'd'
+        }],
+        e: 'e'
+      }],
+      g: 'g'
+    });
+
+    expect(res).to.equal({
+      a: [{
+        b: [{
+          c: 'c',
+          d: 'd'
+        }]
+      }, {
         b: [{
           c: 'c',
           d: 'd'
