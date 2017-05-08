@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Tests",
-      "program": "${workspaceRoot}/test/filter-processOmit.spec.js"
+      "program": "${workspaceRoot}/lib/index2.js"
     }
   ]
 }
