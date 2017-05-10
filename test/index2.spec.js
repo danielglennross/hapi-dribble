@@ -128,4 +128,45 @@ describe('filter responses', () => {
     testFilter({ filter, fixture, expected }, done);
   });
 
+  it('should', (done) => {
+    const filter = {
+      omit: ['g.h'],
+      allow: ['a.b', 'g', 'a.b.c'],
+      deep: [
+        { for: 'a.b', allow: ['c'] },
+        { for: 'a.b', allow: ['d'] }
+      ]
+    };
+
+    const fixture = {
+      a: {
+        b: {
+          c: 'c',
+          d: 'd',
+          e: 'e'
+        },
+        f: 'f'
+      },
+      g: [{
+        h: 'h',
+        i: 'i'
+      }],
+      j: 'j'
+    };
+
+    const expected = {
+      a: {
+        b: {
+          c: 'c',
+          d: 'd'
+        }
+      },
+      g: [{
+        i: 'i'
+      }]
+    };
+
+    testFilter({ filter, fixture, expected }, done);
+  });
+
 });

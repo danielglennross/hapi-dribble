@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Tests",
-      "program": "${workspaceRoot}/lib/index2.js"
+      "program": "${workspaceRoot}/test/index2.spec.js"
     }
   ]
 }

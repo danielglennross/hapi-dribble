@@ -13,7 +13,7 @@ const it = lab.it;
 describe('processDeep Keep', () => {
 
   it('should', (done) => {
-    const res = filter.processDeep({ for: 'a.b', allow: ['c', 'd'] }, {
+    const res = filter.processDeep({ for: 'a.b', omit: ['c', 'd'] }, {
       a: {
         b: {
           c: 'c',
@@ -28,8 +28,7 @@ describe('processDeep Keep', () => {
     expect(res).to.equal({
       a: {
         b: {
-          c: 'c',
-          d: 'd'
+          e: 'e'
         },
         f: 'f'
       },
@@ -39,7 +38,7 @@ describe('processDeep Keep', () => {
   });
 
   it('should', (done) => {
-    const res = filter.processDeep({ for: 'a.b', allow: ['c', 'd'] }, {
+    const res = filter.processDeep({ for: 'a.b', omit: ['c', 'd'] }, {
       a: [{
         b: {
           c: 'c',
@@ -61,14 +60,12 @@ describe('processDeep Keep', () => {
     expect(res).to.equal({
       a: [{
         b: {
-          c: 'c',
-          d: 'd'
+          e: 'e'
         },
         f: 'f'
       }, {
         b: {
-          c: 'c',
-          d: 'd'
+          e: 'e'
         },
         f: 'f'
       }],
@@ -78,7 +75,7 @@ describe('processDeep Keep', () => {
   });
 
   it('should', (done) => {
-    const res = filter.processDeep({ for: 'a.[].b', allow: ['c', 'd'] }, {
+    const res = filter.processDeep({ for: 'a.[].b', omit: ['c', 'd'] }, {
       a: [
         [
           {
@@ -99,8 +96,7 @@ describe('processDeep Keep', () => {
         [
           {
             b: {
-              c: 'c',
-              d: 'd'
+              e: 'e'
             },
             f: 'f'
           }
@@ -112,7 +108,7 @@ describe('processDeep Keep', () => {
   });
 
   it('should', (done) => {
-    const res = filter.processDeep({ for: 'a.[].[].b', allow: ['c', 'd'] }, {
+    const res = filter.processDeep({ for: 'a.[].[].b', omit: ['c', 'd'] }, {
       a: [
         [
           [
@@ -136,8 +132,7 @@ describe('processDeep Keep', () => {
           [
             {
               b: {
-                c: 'c',
-                d: 'd'
+                e: 'e'
               },
               f: 'f'
             }
