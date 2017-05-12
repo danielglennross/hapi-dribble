@@ -3,16 +3,16 @@
 const Code = require('code');
 const Lab = require('lab');
 
-const filter = require('../lib/index3');
+const filter = require('../../lib/dribble');
 
 const expect = Code.expect;
-const lab = Lab.script();
+const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
 
-describe('processDeep Keep', () => {
+describe('processDeep Omit', () => {
 
-  it('should', (done) => {
+  it('should omit only properties specified', (done) => {
     const res = filter.processDeep({ for: 'a.b', omit: ['c', 'd'] }, {
       a: {
         b: {
@@ -37,7 +37,7 @@ describe('processDeep Keep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep only properties specified within a parent array', (done) => {
     const res = filter.processDeep({ for: 'a.b', omit: ['c', 'd'] }, {
       a: [{
         b: {
@@ -74,7 +74,7 @@ describe('processDeep Keep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep only properties specified within a parent jaggered array', (done) => {
     const res = filter.processDeep({ for: 'a.[].b', omit: ['c', 'd'] }, {
       a: [
         [
@@ -107,7 +107,7 @@ describe('processDeep Keep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep only properties specified within a parent nested jaggered array', (done) => {
     const res = filter.processDeep({ for: 'a.[].[].b', omit: ['c', 'd'] }, {
       a: [
         [

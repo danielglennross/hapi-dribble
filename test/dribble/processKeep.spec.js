@@ -3,16 +3,16 @@
 const Code = require('code');
 const Lab = require('lab');
 
-const filter = require('../lib/index3');
+const filter = require('../../lib/dribble');
 
 const expect = Code.expect;
-const lab = Lab.script();
+const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
 
 describe('proceesKeep', () => {
 
-  it('should', (done) => {
+  it('should keep nested object property and non nested property', (done) => {
     const res = filter.processKeep(['a.b.c', 'g'], {
       a: {
         b: {
@@ -35,7 +35,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should ensure object properties are assigned to the same parent object', (done) => {
     const res = filter.processKeep(['a.b.c', 'a.b.d'], {
       a: {
         b: {
@@ -58,7 +58,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep nested object properties within an array', (done) => {
     const res = filter.processKeep(['a.b.c', 'g'], {
       a: [{
         b: {
@@ -81,7 +81,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should ensure object properties are assigned to the same parent object within an array', (done) => {
     const res = filter.processKeep(['a.b.c', 'a.b.d'], {
       a: {
         b: [{
@@ -104,7 +104,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep all properties of nested property, if an object - array path', (done) => {
     const res = filter.processKeep(['a.b'], {
       a: [{
         b: {
@@ -127,7 +127,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep all properties of nested property, if an object - nested array path', (done) => {
     const res = filter.processKeep(['a.b'], {
       a: [{
         b: [{
@@ -150,7 +150,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep nested object properties within a multy element array', (done) => {
     const res = filter.processKeep(['a.b.c', 'a.b.d'], {
       a: [{
         b: {
@@ -184,7 +184,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep nested object properties within a multy element nested array', (done) => {
     const res = filter.processKeep(['a.b.c', 'a.b.d'], {
       a: [{
         b: [{
@@ -218,7 +218,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep nested properties within a nested array and regular properties', (done) => {
     const res = filter.processKeep(['a.b', 'h'], [{
       h: 'h',
       a: [{
@@ -243,7 +243,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep a nested object property within a jaggered array', (done) => {
     const res = filter.processKeep(['a.[].b'], {
       a: [
         [
@@ -267,7 +267,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep a jaggared array property', (done) => {
     const res = filter.processKeep(['a.[]'], {
       a: [
         [
@@ -302,7 +302,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should keep a nested object property within nested jaggered arrays', (done) => {
     const res = filter.processKeep(['[].a'], [
       [
         {

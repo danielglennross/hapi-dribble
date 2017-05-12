@@ -4,7 +4,7 @@
   "description": "dynamically filter api responses",
   "main": "lib/index.js",
   "scripts": {
-    "test": "test/index.spec.js"
+    "test": "node ./node_modules/lab/bin/lab -v"
   },
   "repository": {
     "type": "git",

@@ -3,16 +3,16 @@
 const Code = require('code');
 const Lab = require('lab');
 
-const filter = require('../lib/index3');
+const filter = require('../../lib/dribble');
 
 const expect = Code.expect;
-const lab = Lab.script();
+const lab = exports.lab = Lab.script();
 const describe = lab.describe;
 const it = lab.it;
 
-describe('proceesKeep', () => {
+describe('proceesOmit', () => {
 
-  it('should', (done) => {
+  it('should omit nested and non-nested object properties', (done) => {
     const res = filter.processOmit(['a.b.c', 'g'], {
       a: {
         b: {
@@ -35,7 +35,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit parent object recursively if child is empty', (done) => {
     const res = filter.processOmit(['a.b.c'], {
       a: {
         b: {
@@ -51,7 +51,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit nested object properties within an array with multiple elements', (done) => {
     const res = filter.processOmit(['a.b.c'], {
       a: [{
         b: {
@@ -82,7 +82,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit nested object properties within a single element array', (done) => {
     const res = filter.processOmit(['a.b.c', 'g'], {
       a: [{
         b: {
@@ -105,7 +105,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit entire nested object within an array', (done) => {
     const res = filter.processOmit(['a.b'], {
       a: [{
         b: {
@@ -126,7 +126,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit entire nested object within a nested array', (done) => {
     const res = filter.processOmit(['a.b'], {
       a: [{
         b: [{
@@ -147,7 +147,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit entire nested object within a nested array and regular properties', (done) => {
     const res = filter.processOmit(['a.b', 'h'], [{
       h: 'h',
       a: [{
@@ -169,7 +169,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit object properties within a jaggered array', (done) => {
     const res = filter.processOmit(['a.[].b'], {
       a: [
         [
@@ -193,7 +193,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit object properties within a nested jaggered array', (done) => {
     const res = filter.processOmit(['a.[].[].b'], {
       a: [
         [
@@ -221,7 +221,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit parent object within jaggered array recursively if child object is empty', (done) => {
     const res = filter.processOmit(['a.[].[].b'], {
       a: [
         [
@@ -238,7 +238,7 @@ describe('proceesKeep', () => {
     done();
   });
 
-  it('should', (done) => {
+  it('should omit parent object within jaggered array recursively if child is jaggered array', (done) => {
     const res = filter.processOmit(['a.[].[]'], {
       a: [
         [
