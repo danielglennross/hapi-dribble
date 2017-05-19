@@ -29,8 +29,6 @@
   },
   "homepage": "https://github.com/danielglennross/hapi-dribble#readme",
   "dependencies": {
-    "hoek": "^4.1.0",
-    "lodash": "^4.17.4",
-    "object-unset": "^1.0.1"
+    "lodash": "^4.17.4"
   }
 }
