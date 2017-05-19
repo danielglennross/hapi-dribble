@@ -47,18 +47,15 @@ server.register({
 });
 ```
 Objects consisting of a `rule` and `filter` can be assigned to the `dribble` plugin object.
-
 The first rule that evaluates to `true` will be used by dribble in order to conditionally filter the response. 
-
 The schema defined in the `filter` will be used to process the data.
 
 
 Filters can specify `keep`, `omit` and `deep` properties. All are optional, `keep` is processed first, followed by `omit` and finally `deep`.
+This order may be critical to your design. 
 
-This order may be critical to your design. `keep` and `omit` are string arrays representing property paths.
-
+`keep` and `omit` are string arrays representing property paths.
 Properties specified in these paths can be nested objects, nested arrays, jaggered arrays, or a combination of any of these. 
-
 `deep` is slightly different. Here, an array of objects is specified, with `for` - a string property path pointing to a nested property object, and
 `omit` or `keep` array detailing first class properties on the object pointed to by `for`.
 
@@ -117,7 +114,7 @@ Some example property paths are outlined below:
 `'[].a'` - this path points to the nested jaggered array properties 'a' on the above object
 
 
-Example:
+## Example
 
 
 Given the following object:
