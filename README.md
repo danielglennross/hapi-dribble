@@ -1,5 +1,5 @@
 # hapi-dribble
-`hapi-dribble` allows api responses to be filtered dynamically based upon the `server.request` state.
+`hapi-dribble` allows api responses to be filtered dynamically based upon a `request` state.
 
 ## Install
 `npm install --save hapi-dribble`
@@ -20,7 +20,8 @@ server.register({
       plugins: {
         dribble: {
           hasAdminScope: {
-            rule: (request) => request.auth.credentials.scope.includes('admin')
+            rule: (request) => 
+              request.auth.credentials.scope.includes('admin'),
             filter: {
               omit: ['user.id']
               deep: {[ 
@@ -29,7 +30,8 @@ server.register({
             }
           },
           hasSuperAdminScope: {
-            rule: (request) => request.auth.credentials.scope.includes('super-admin')
+            rule: (request) => 
+              request.auth.credentials.scope.includes('super-admin'),
             filter: {
               keep: ['user', 'meta']
               deep: {[ 
@@ -181,10 +183,6 @@ Note:
   }
 }
 ```
-A filter which specifies: `Keep: ['a.b.c', 'a.b']`
-
-is reduced to: `Keep: ['a.b']`
-
-as pointing to path `'a.b'` will keep all of the properties in object `b` (`'c'` here is inferred).
+A filter which specifies: `Keep: ['a.b.c', 'a.b']` is reduced to: `Keep: ['a.b']` as pointing to path `'a.b'` will keep all of the properties in object `b` (`'c'` here is inferred).
 
 - If the path contains an array property, it is assumed each item in the array has a consistent schema.
