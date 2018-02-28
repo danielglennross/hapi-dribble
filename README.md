@@ -24,9 +24,9 @@ server.register({
               request.auth.credentials.scope.includes('admin'),
             filter: {
               omit: ['user.id']
-              deep: {[ 
-                { for: 'user.data': omit: ['personal'] }
-              ]}
+              deep: [ 
+                { for: 'user.data', omit: ['personal'] }
+              ]
             }
           },
           hasSuperAdminScope: {
@@ -34,9 +34,9 @@ server.register({
               request.auth.credentials.scope.includes('super-admin'),
             filter: {
               keep: ['user', 'meta']
-              deep: {[ 
-                { for: 'user.data': omit: ['personal'] }
-              ]}
+              deep: [ 
+                { for: 'user.data', omit: ['personal'] }
+              ]
             }
           }
         }
