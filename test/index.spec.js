@@ -11,34 +11,37 @@ const it = lab.it;
 
 describe('index', () => {
 
-  const testFilter = (options, done) => {
-    const server = new Hapi.Server();
-    server.connection();
+  const testFilter = async (options, done) => {
+    const server = Hapi.server();
 
-    server.register(require('../lib'), () => {
+    await server.register(require('../lib'))
 
-      server.route({
-        method: 'GET',
-        path: '/filter',
-        config: {
-          plugins: {
-            dribble: {
-              all: {
-                rule: () => true,
-                filter: options.filter
-              }
+    server.route({
+      method: 'GET',
+      path: '/filter',
+      config: {
+        plugins: {
+          dribble: {
+            all: {
+              rule: () => true,
+              filter: options.filter
             }
-          },
-          handler: (request, reply) =>
-            reply(options.fixture).code(200)
-        }
-      });
-
-      server.inject('/filter', (res) => {
-        expect(JSON.parse(res.payload)).to.equal(options.expected);
-        done();
-      });
+          }
+        },
+        handler: (request, h) =>
+          h.response(options.fixture).code(200)
+      }
     });
+
+    const injectOptions = {
+      method: 'GET',
+      url: '/filter'
+    };
+
+    const res = await server.inject(injectOptions);
+
+    expect(JSON.parse(res.payload)).to.equal(options.expected);
+    done();
   };
 
   it('should filter complicated random object, keep has a.b.c inferred by a.b', (done) => {
