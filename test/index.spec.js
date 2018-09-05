@@ -14,7 +14,8 @@ describe('index', () => {
   const testFilter = async (options, done) => {
     const server = Hapi.server();
 
-    await server.register(require('../lib'))
+    // eslint-disable-next-line no-unused-expressions
+    await server.register(require('../lib'));
 
     server.route({
       method: 'GET',

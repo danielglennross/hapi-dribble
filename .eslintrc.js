@@ -8,6 +8,7 @@ module.exports = {
   },
   "parserOptions": {
     "sourceType": "script",
+    "ecmaVersion": 8,
     "ecmaFeatures": {
       "modules": false,
       "impliedStrict": false
