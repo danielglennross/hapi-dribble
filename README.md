@@ -6,12 +6,13 @@
 
 ## Usage
 ```javascript
+const Hapi = require('hapi');
+const Dribble = require('hapi-dribble');
 
-server.register({
-  register: require('hapi-dribble'),
-  options
-}, (err) => {
-  
+(async () => {
+  const server = Hapi.server({ port: 8080 });
+  await server.register(Dribble);
+
   server.route({
     method: 'GET',
     path: '/users',
@@ -20,33 +21,33 @@ server.register({
       plugins: {
         dribble: {
           hasAdminScope: {
-            rule: (request) => 
+            rule: (request) =>
               request.auth.credentials.scope.includes('admin'),
             filter: {
-              omit: ['user.id']
-              deep: [ 
+              omit: ['user.id'],
+              deep: [
                 { for: 'user.data', omit: ['personal'] }
               ]
             }
           },
           hasSuperAdminScope: {
-            rule: (request) => 
+            rule: (request) =>
               request.auth.credentials.scope.includes('super-admin'),
             filter: {
-              keep: ['user', 'meta']
-              deep: [ 
+              keep: ['user', 'meta'],
+              deep: [
                 { for: 'user.data', omit: ['personal'] }
               ]
             }
           }
         }
       },
-      handler: (request, reply) =>
-        reply(request.auth.artifacts.scopeContext).code(200)
+      handler: (request, h) => request.auth.artifacts.scopeContext
     }
   });
 
-});
+  await server.start();
+})();
 ```
 Objects consisting of a `rule` and `filter` can be assigned to the `dribble` plugin object.
 The first rule that evaluates to `true` will be used by dribble in order to conditionally filter the response. 

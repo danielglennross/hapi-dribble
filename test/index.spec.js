@@ -29,8 +29,7 @@ describe('index', () => {
             }
           }
         },
-        handler: (request, h) =>
-          h.response(options.fixture).code(200)
+        handler: () => options.fixture
       }
     });
 
