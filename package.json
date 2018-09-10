@@ -1,6 +1,6 @@
 {
   "name": "hapi-dribble",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "dynamically filter api responses",
   "main": "lib/index.js",
   "scripts": {
